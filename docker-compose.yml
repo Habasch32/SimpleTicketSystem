@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      PORT: "3001"
+      # IMPORTANT: Change this secret before deploying to production!
+      JWT_SECRET: "CHANGE_ME_IN_PRODUCTION"
+      DB_PATH: "/app/data/tickets.db"
+    volumes:
+      - db_data:/app/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  db_data:

@@ -24,39 +24,13 @@ Ein einfaches Jira-ähnliches Ticketsystem mit Kanban-Board, Drag & Drop, Priori
 | Auth      | JWT + bcrypt                             |
 | Deployment | Docker, Nginx                           |
 
-## Lokale Entwicklung
+## Deployment
 
-### Voraussetzungen
+### Produktion — Docker (empfohlen)
 
-- Node.js 18+
-- npm 9+
+Für den Betrieb auf einem Server wird ausschließlich Docker benötigt. Node.js muss **nicht** installiert sein.
 
-### Setup
-
-```bash
-# Dependencies installieren
-npm install
-
-# Entwicklungsserver starten (Backend + Frontend parallel)
-npm run dev
-```
-
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3001/api
-
-### Erste Schritte
-
-1. http://localhost:5173/register aufrufen und Konto erstellen
-2. Einloggen und loslegen
-
-## Docker Deployment
-
-### Voraussetzungen
-
-- Docker
-- Docker Compose
-
-### Starten
+**Voraussetzungen:** Docker, Docker Compose
 
 ```bash
 # Container bauen und starten
@@ -74,8 +48,6 @@ docker-compose down
 
 Die App ist unter **http://localhost** erreichbar.
 
-### Produktionsbetrieb
-
 Vor dem Produktionseinsatz den `JWT_SECRET` in [docker-compose.yml](docker-compose.yml) auf einen sicheren Wert ändern:
 
 ```yaml
@@ -84,6 +56,17 @@ environment:
 ```
 
 Die SQLite-Datenbank wird in einem Docker Volume (`db_data`) gespeichert und bleibt beim Neustart erhalten.
+
+### Lokale Entwicklung
+
+`npm run dev` wird **nur** für die lokale Entwicklung benötigt — es startet Vite mit Hot Reload und den Backend-Server mit Auto-Restart bei Dateiänderungen. Für Produktion **nicht** verwenden.
+
+**Voraussetzungen:** Node.js 18+, npm 9+
+
+```bash
+npm install   # einmalig
+npm run dev   # startet Frontend (:5173) + Backend (:3001) parallel
+```
 
 ## Projektstruktur
 
